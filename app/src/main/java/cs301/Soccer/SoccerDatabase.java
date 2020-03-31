@@ -81,6 +81,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpGoals(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpGoals();
+            return true;
+        }
         return false;
     }
 
@@ -91,6 +97,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpAssists(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpAssists();
+            return true;
+        }
         return false;
     }
 
@@ -101,6 +113,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpShots(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpShots();
+            return true;
+        }
         return false;
     }
 
@@ -111,6 +129,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpSaves(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpSaves();
+            return true;
+        }
         return false;
     }
 
@@ -121,6 +145,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpFouls(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpFouls();
+            return true;
+        }
         return false;
     }
 
@@ -131,6 +161,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpYellowCards(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpYellowCards();
+            return true;
+        }
         return false;
     }
 
@@ -141,6 +177,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpRedCards(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.get(combinedName).bumpRedCards();
+            return true;
+        }
         return false;
     }
 
