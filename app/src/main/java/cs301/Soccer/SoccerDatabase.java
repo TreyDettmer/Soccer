@@ -1,6 +1,8 @@
 package cs301.Soccer;
 
 import android.util.Log;
+import android.util.SparseArray;
+
 import cs301.Soccer.soccerPlayer.SoccerPlayer;
 import java.io.File;
 import java.io.IOException;
@@ -194,7 +196,20 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     // report number of players on a given team (or all players, if null)
     public int numPlayers(String teamName) {
-        return -1;
+        int count = 0;
+        if (teamName == null)
+        {
+            return playerHashMap.size();
+        }
+        for (Map.Entry element : playerHashMap.entrySet())
+        {
+            SoccerPlayer player = (SoccerPlayer)element.getValue();
+            if (player.getTeamName().equalsIgnoreCase(teamName))
+            {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     /**
