@@ -16,6 +16,15 @@ import java.util.*;
  */
 public class SoccerDatabase implements SoccerDB {
 
+    private HashMap<String,SoccerPlayer> playerHashMap = new HashMap<>();
+
+    private String combineName(String first, String last)
+    {
+        String returnedString = first + " ## " + last;
+        return returnedString;
+    }
+
+
     /**
      * add a player
      *
@@ -24,6 +33,13 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     public boolean addPlayer(String firstName, String lastName,
                              int uniformNumber, String teamName) {
+        String combinedName = combineName(firstName,lastName);
+        if (!playerHashMap.containsKey(combinedName))
+        {
+            SoccerPlayer player = new SoccerPlayer(firstName,lastName,uniformNumber,teamName);
+            playerHashMap.put(combinedName,player);
+            return true;
+        }
         return false;
     }
 
