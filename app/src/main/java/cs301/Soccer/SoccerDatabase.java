@@ -5,6 +5,7 @@ import android.util.SparseArray;
 
 import cs301.Soccer.soccerPlayer.SoccerPlayer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -270,7 +271,30 @@ public class SoccerDatabase implements SoccerDB {
     // write data to file
     @Override
     public boolean writeData(File file) {
-        return false;
+        try {
+            PrintWriter pw = new PrintWriter(file);
+            for (Map.Entry element : playerHashMap.entrySet()) {
+                SoccerPlayer player = (SoccerPlayer) element.getValue();
+                pw.println(logString(player.getFirstName()));
+                pw.println(logString(player.getLastName()));
+                pw.println(logString(player.getUniform() + ""));
+                pw.println(logString(player.getTeamName()));
+                pw.println(logString(player.getGoals() + ""));
+                pw.println(logString(player.getAssists() + ""));
+                pw.println(logString(player.getShots() + ""));
+                pw.println(logString(player.getFouls() + ""));
+                pw.println(logString(player.getSaves() + ""));
+                pw.println(logString(player.getYellowCards() + ""));
+                pw.println(logString(player.getRedCards() + ""));
+            }
+            return true;
+
+        }
+        catch (FileNotFoundException ex)
+        {
+            return false;
+        }
+
     }
 
     /**
