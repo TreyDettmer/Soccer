@@ -60,6 +60,11 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            return playerHashMap.get(combinedName);
+        }
         return null;
     }
 
