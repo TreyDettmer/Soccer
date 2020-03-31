@@ -50,6 +50,12 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean removePlayer(String firstName, String lastName) {
+        String combinedName = combineName(firstName,lastName);
+        if (playerHashMap.containsKey(combinedName))
+        {
+            playerHashMap.remove(combinedName);
+            return true;
+        }
         return false;
     }
 
