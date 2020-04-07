@@ -260,7 +260,144 @@ public class SoccerDatabase implements SoccerDB {
     // read data from file
     @Override
     public boolean readData(File file) {
-        return file.exists();
+
+
+        try
+        {
+            Scanner scanner = new Scanner(file);
+
+
+
+            ArrayList<String> readValues = new ArrayList<>();
+            while (scanner.hasNext())
+            {
+                readValues.add(scanner.nextLine());
+            }
+            scanner.close();
+            String firstName = "";
+            String lastName = "";
+            int uniform = 0;
+            String teamName = "";
+            int goals = 0;
+            int assists = 0;
+            int shots = 0;
+            int fouls = 0;
+            int saves = 0;
+            int yellowCards = 0;
+            int redCards = 0;
+
+            for (int i = 0; i < readValues.size();i++)
+            {
+                switch (i%11)
+                {
+                    case 0:
+                        firstName = readValues.get(i);
+                        break;
+                    case 1:
+                        lastName = readValues.get(i);
+                        break;
+                    case 2:
+                        uniform = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 3:
+                        teamName = readValues.get(i);
+                        break;
+                    case 4:
+                        goals = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 5:
+                        assists = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 6:
+                        shots = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 7:
+                        fouls = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 8:
+                        saves = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 9:
+                        yellowCards = Integer.parseInt(readValues.get(i));
+                        break;
+                    case 10:
+                        redCards = Integer.parseInt(readValues.get(i));
+                        SoccerPlayer player = new SoccerPlayer(firstName,lastName,uniform,teamName);
+                        int playerVarIncrementer = 0;
+                        while (playerVarIncrementer < goals){player.bumpGoals();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < assists){player.bumpAssists();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < shots){player.bumpShots();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < fouls){player.bumpFouls();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < saves){player.bumpSaves();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < yellowCards){player.bumpYellowCards();playerVarIncrementer++;}
+                        playerVarIncrementer = 0;
+                        while (playerVarIncrementer < redCards){player.bumpRedCards();playerVarIncrementer++;}
+                        String combinedName = combineName(firstName,lastName);
+                        playerHashMap.put(combinedName,player);
+                        Log.i("string", "Added Player");
+
+
+
+                        break;
+
+
+                }
+
+
+
+
+            }
+            /*
+            for (;;)
+            {
+                Log.i("string", "before");
+                if (!scanner.hasNextLine()) break;
+                Log.i("string", "after");
+                firstName = scanner.nextLine();
+                if (!scanner.hasNextLine()) break;
+                lastName = scanner.nextLine();
+                if (!scanner.hasNextLine()) break;
+                uniform = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                teamName = scanner.nextLine();
+                if (!scanner.hasNextLine()) break;
+                goals = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                assists = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                shots = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                fouls = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                saves = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                yellowCards = Integer.parseInt(scanner.nextLine());
+                if (!scanner.hasNextLine()) break;
+                redCards = Integer.parseInt(scanner.nextLine());
+                SoccerPlayer player = new SoccerPlayer(firstName,lastName,uniform,teamName);
+
+
+
+
+
+            }
+            */
+
+            Log.i("string", "returning true");
+            return true;
+        }
+        catch (FileNotFoundException ex)
+        {
+            Log.i("string", "File not found");
+            return false;
+        }
+
+
     }
 
     /**
@@ -287,6 +424,7 @@ public class SoccerDatabase implements SoccerDB {
                 pw.println(logString(player.getYellowCards() + ""));
                 pw.println(logString(player.getRedCards() + ""));
             }
+            pw.close();
             return true;
 
         }
@@ -315,7 +453,16 @@ public class SoccerDatabase implements SoccerDB {
     // return list of teams
     @Override
     public HashSet<String> getTeams() {
-        return new HashSet<String>();
+        HashSet<String> teams = new HashSet<>();
+        for (Map.Entry element : playerHashMap.entrySet()) {
+            SoccerPlayer player = (SoccerPlayer) element.getValue();
+            String team = player.getTeamName();
+            if (!teams.contains(team))
+            {
+                teams.add(team);
+            }
+        }
+        return teams;
     }
 
 }
